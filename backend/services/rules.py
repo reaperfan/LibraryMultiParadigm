@@ -66,7 +66,7 @@ def calculate_late_fee(due_date: date, reference_date: date, daily_fee: int, max
     """
     if daily_fee < 0 or max_fee < 0:
         raise ValueError("A napi díj és a díjplafon nem lehet negatív")
-    return min((days_overdue(due_date, reference_date) + 1) * daily_fee, max_fee)
+    return min(days_overdue(due_date, reference_date) * daily_fee, max_fee)
 
 
 def available_copies(copies_total: int, active_loan_count: int) -> int:
