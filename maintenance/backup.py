@@ -14,11 +14,13 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import time
 from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 
-from sqlalchemy import Table, inspect, select
+from sqlalchemy import Table, inspect, select, text
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session, sessionmaker
 
 from backend import models  # noqa: F401  – a táblák regisztrálása
@@ -147,6 +149,32 @@ def _redact(url: str) -> str:
         user = creds.split(":", 1)[0]
         return f"{scheme}://{user}:***@{host}"
     return url
+
+
+def wait_for_database(database_url: str, timeout: float, interval: float = 5.0) -> None:
+    """Időkorlátos várakozás, amíg az adatbázis fogad kapcsolatot (``SELECT 1``).
+
+    Új felhős példány a szolgáltatónál már ``available``, de a Postgres néha csak
+    másodpercekkel később fogad SSL-kapcsolatot; ezt hidalja át.
+    """
+    engine = build_engine(database_url)
+    deadline = time.monotonic() + timeout
+    attempt = 0
+    try:
+        while True:
+            attempt += 1
+            try:
+                with engine.connect() as conn:
+                    conn.execute(text("SELECT 1"))
+                logger.info("Adatbázis elérhető: %s (%d. próbálkozás)", _redact(database_url), attempt)
+                return
+            except OperationalError as exc:
+                if time.monotonic() >= deadline:
+                    raise TimeoutError(f"Az adatbázis nem fogad kapcsolatot {timeout:.0f} mp után: {exc}") from exc
+                logger.warning("Adatbázis még nem elérhető (%d. próbálkozás), várakozás %.0f mp", attempt, interval)
+                time.sleep(interval)
+    finally:
+        engine.dispose()
 
 
 def table_names(database_url: str) -> list[str]:

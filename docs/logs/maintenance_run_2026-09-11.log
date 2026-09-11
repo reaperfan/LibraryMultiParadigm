@@ -1,0 +1,74 @@
+2026-09-11 16:15:06,192 INFO [apscheduler.scheduler] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-09-11 16:15:06,193 INFO [apscheduler.scheduler] Added job "scheduled_loop.<locals>.job" to job store "default"
+2026-09-11 16:15:06,194 INFO [apscheduler.scheduler] Scheduler started
+2026-09-11 16:15:06,194 INFO [maintenance] Ütemező elindult: 2 percenként ellenőrzés (Ctrl+C: leállítás)
+2026-09-11 16:15:06,194 INFO [apscheduler.executors.default] Running job "scheduled_loop.<locals>.job (trigger: interval[0:02:00], next run at: 2026-09-11 14:17:06 UTC)" (scheduled at 2026-09-11 14:15:06.190752+00:00)
+2026-09-11 16:15:06,894 INFO [maintenance] Ellenőrzés: példány=dpg-dai0abp42hec73aq7hrg-a állapot=available lejárat=2026-10-11T13:42:07.618894+00:00 backend={'status': 'ok', 'maintenance': False} -> csere=False (Nincs csereok)
+2026-09-11 16:15:06,894 INFO [apscheduler.executors.default] Job "scheduled_loop.<locals>.job (trigger: interval[0:02:00], next run at: 2026-09-11 14:17:06 UTC)" executed successfully
+2026-09-11 16:17:06,201 INFO [apscheduler.executors.default] Running job "scheduled_loop.<locals>.job (trigger: interval[0:02:00], next run at: 2026-09-11 14:19:06 UTC)" (scheduled at 2026-09-11 14:17:06.190752+00:00)
+2026-09-11 16:17:06,790 INFO [maintenance] Ellenőrzés: példány=dpg-dai0abp42hec73aq7hrg-a állapot=available lejárat=2026-10-11T13:42:07.618894+00:00 backend={'status': 'ok', 'maintenance': False} -> csere=False (Nincs csereok)
+2026-09-11 16:17:06,790 INFO [apscheduler.executors.default] Job "scheduled_loop.<locals>.job (trigger: interval[0:02:00], next run at: 2026-09-11 14:19:06 UTC)" executed successfully
+2026-09-11 16:19:06,205 INFO [apscheduler.executors.default] Running job "scheduled_loop.<locals>.job (trigger: interval[0:02:00], next run at: 2026-09-11 14:21:06 UTC)" (scheduled at 2026-09-11 14:19:06.190752+00:00)
+2026-09-11 16:19:06,839 INFO [maintenance] Ellenőrzés: példány=dpg-dai0abp42hec73aq7hrg-a állapot=available lejárat=2026-10-11T13:42:07.618894+00:00 backend={'status': 'ok', 'maintenance': False} -> csere=True (Tervezett karbantartás esedékes (2026-09-11T14:18:01+00:00))
+2026-09-11 16:19:06,857 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: preflight
+2026-09-11 16:19:08,353 INFO [maintenance.rotation] Előfeltételek rendben. Forrás=dpg-dai0abp42hec73aq7hrg-a (free, frankfurt, pg18) backend=LibraryMultiParadigm új példány: plan=free region=frankfurt version=18
+2026-09-11 16:19:08,354 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: freeze_writes
+2026-09-11 16:19:08,686 INFO [maintenance.rotation] Írások tiltva; 10 mp várakozás a folyamatban lévő kérésekre
+2026-09-11 16:19:18,775 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: backup
+2026-09-11 16:19:20,142 INFO [maintenance.backup] Mentés kész: backups\backup_20260911T141920Z_dpg-dai0abp42hec73aq7hrg-a.json ({'books': 8, 'maintenance_probes': 0, 'members': 4, 'loans': 7})
+2026-09-11 16:19:20,144 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: verify_local_restore
+2026-09-11 16:19:20,219 INFO [maintenance.backup] Visszaállítás kész: {'books': 8, 'maintenance_probes': 0, 'members': 4, 'loans': 7} -> sqlite:///./verify_local.db
+2026-09-11 16:19:20,230 INFO [maintenance.verify] Ellenőrzés SIKERES: {'rowcount:books': True, 'rowcount:members': True, 'rowcount:loans': True, 'content_checksum': True, 'foreign_keys': True, 'rule_result': True, 'id_generation': True}
+2026-09-11 16:19:20,231 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: delete_old
+2026-09-11 16:19:20,660 WARNING [maintenance.rotation] Régi példány törlése: dpg-dai0abp42hec73aq7hrg-a
+2026-09-11 16:19:21,679 ERROR [maintenance.render_api] Render API GET /postgres/dpg-dai0abp42hec73aq7hrg-a -> 404: {"message":"not found: dpg-dai0abp42hec73aq7hrg-a"}
+
+2026-09-11 16:19:21,679 INFO [maintenance.rotation] A törlés befejeződött
+2026-09-11 16:19:21,680 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: create_new
+2026-09-11 16:19:21,912 INFO [maintenance.rotation] Egyeztetés: Nincs a futáshoz tartozó példány; a létrehozás indítható
+2026-09-11 16:19:23,699 INFO [maintenance.rotation] Új példány létrehozva: dpg-dai0roid0e5s7399mdhg-a
+2026-09-11 16:19:24,105 INFO [maintenance.render_api] Példány dpg-dai0roid0e5s7399mdhg-a állapota: creating
+2026-09-11 16:19:34,530 INFO [maintenance.render_api] Példány dpg-dai0roid0e5s7399mdhg-a állapota: creating
+2026-09-11 16:19:44,958 INFO [maintenance.render_api] Példány dpg-dai0roid0e5s7399mdhg-a állapota: creating
+2026-09-11 16:19:55,385 INFO [maintenance.render_api] Példány dpg-dai0roid0e5s7399mdhg-a állapota: creating
+2026-09-11 16:20:05,803 INFO [maintenance.render_api] Példány dpg-dai0roid0e5s7399mdhg-a állapota: creating
+2026-09-11 16:20:16,239 INFO [maintenance.render_api] Példány dpg-dai0roid0e5s7399mdhg-a állapota: available
+2026-09-11 16:20:16,240 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: restore_new
+2026-09-11 16:20:18,271 ERROR [maintenance.rotation] A csere leállt a(z) 'restore_new' lépésnél: OperationalError: (psycopg.OperationalError) connection failed: connection to server at "3.120.236.187", port 5432 failed: SSL connection has been closed unexpectedly
+Multiple connection attempts failed. All failures were:
+- host: 'dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com', port: 5432, hostaddr: '18.196.138.205': connection failed: connection to server at "18.196.138.205", port 5432 failed: SSL connection has been closed unexpectedly
+- host: 'dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com', port: 5432, hostaddr: '3.65.142.85': connection failed: connection to server at "3.65.142.85", port 5432 failed: SSL connection has been closed unexpectedly
+- host: 'dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com', port: 5432, hostaddr: '3.120.236.187': connection failed: connection to server at "3.120.236.187", port 5432 failed: SSL connection has been closed unexpectedly
+(Background on this error at: https://sqlalche.me/e/20/e3q8). A karbantartási mód érvényben marad.
+2026-09-11 16:20:18,271 ERROR [maintenance] Csere hibával leállt: OperationalError: (psycopg.OperationalError) connection failed: connection to server at "3.120.236.187", port 5432 failed: SSL connection has been closed unexpectedly
+Multiple connection attempts failed. All failures were:
+- host: 'dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com', port: 5432, hostaddr: '18.196.138.205': connection failed: connection to server at "18.196.138.205", port 5432 failed: SSL connection has been closed unexpectedly
+- host: 'dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com', port: 5432, hostaddr: '3.65.142.85': connection failed: connection to server at "3.65.142.85", port 5432 failed: SSL connection has been closed unexpectedly
+- host: 'dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com', port: 5432, hostaddr: '3.120.236.187': connection failed: connection to server at "3.120.236.187", port 5432 failed: SSL connection has been closed unexpectedly
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-09-11 16:20:18,272 INFO [apscheduler.executors.default] Job "scheduled_loop.<locals>.job (trigger: interval[0:02:00], next run at: 2026-09-11 14:21:06 UTC)" executed successfully
+2026-09-11 16:21:03,576 INFO [maintenance.rotation] Futás folytatása: 20260911141906-6eb080, kész lépések: ['preflight', 'freeze_writes', 'backup', 'verify_local_restore', 'delete_old', 'create_new']
+2026-09-11 16:21:03,577 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: restore_new
+2026-09-11 16:21:05,709 WARNING [maintenance.backup] Adatbázis még nem elérhető (1. próbálkozás), várakozás 10 mp
+... (a várakozó sorok ismétlődnek, összesen 53 próbálkozás 10 mp-enként) ...
+2026-09-11 16:31:57,106 INFO [maintenance.rotation] Futás folytatása: 20260911141906-6eb080, kész lépések: ['preflight', 'freeze_writes', 'backup', 'verify_local_restore', 'delete_old', 'create_new']
+2026-09-11 16:31:57,106 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: restore_new
+2026-09-11 16:31:58,117 INFO [maintenance.render_api] IP-engedélylista beállítva a(z) dpg-dai0roid0e5s7399mdhg-a példányon: [{'cidrBlock': '0.0.0.0/0', 'description': 'maintenance controller (external access)'}]
+2026-09-11 16:32:09,622 INFO [maintenance.backup] Adatbázis elérhető: postgresql://library:***@dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com:5432/library_o7vq (1. próbálkozás)
+2026-09-11 16:32:10,955 INFO [maintenance.backup] Visszaállítás kész: {'books': 8, 'maintenance_probes': 0, 'members': 4, 'loans': 7} -> postgresql://library:***@dpg-dai0roid0e5s7399mdhg-a.frankfurt-postgres.render.com:5432/library_o7vq
+2026-09-11 16:32:12,556 INFO [maintenance.verify] Ellenőrzés SIKERES: {'rowcount:books': True, 'rowcount:members': True, 'rowcount:loans': True, 'content_checksum': True, 'foreign_keys': True, 'rule_result': True, 'id_generation': True}
+2026-09-11 16:32:12,558 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: switch_backend
+2026-09-11 16:32:14,245 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: build_in_progress
+2026-09-11 16:32:29,223 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: build_in_progress
+2026-09-11 16:32:40,483 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: build_in_progress
+2026-09-11 16:32:50,849 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: build_in_progress
+2026-09-11 16:33:01,204 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: update_in_progress
+2026-09-11 16:33:13,069 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: update_in_progress
+2026-09-11 16:33:23,410 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: update_in_progress
+2026-09-11 16:33:33,775 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: update_in_progress
+2026-09-11 16:33:44,866 INFO [maintenance.render_api] Telepítés dep-dai11pad0e5s739ah3tg állapota: live
+2026-09-11 16:33:44,868 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: postcheck
+2026-09-11 16:33:45,262 INFO [maintenance.rotation] Utóellenőrzés rendben: 7 kölcsönzés, díjak egyeznek, próbaírás id=2
+2026-09-11 16:33:45,264 INFO [maintenance.rotation] === [20260911141906-6eb080] lépés: finalize
+2026-09-11 16:33:46,422 INFO [maintenance.rotation] Karbantartás feloldva; aktív példány: dpg-dai0roid0e5s7399mdhg-a
+2026-09-11 16:33:46,426 INFO [maintenance.rotation] === Csere sikeres: új aktív példány dpg-dai0roid0e5s7399mdhg-a

@@ -18,6 +18,8 @@ from maintenance.decisions import ErrorClass, backoff_seconds, classify_http_err
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_IP_ALLOW_LIST = [{"cidrBlock": "0.0.0.0/0", "description": "maintenance controller (external access)"}]
+
 
 class RenderAPIError(Exception):
     def __init__(self, message: str, status_code: int | None, error_class: ErrorClass) -> None:
@@ -76,7 +78,8 @@ class RenderClient:
                 logger.warning("%s; újrapróbálkozás %.0f mp múlva (%d/%d)", message, wait, attempt, self.max_retries)
                 await asyncio.sleep(wait)
                 continue
-            logger.error(message)
+            # 404 várt válasz is lehet (törlés befejezésének ellenőrzése), ezért csak info szint
+            logger.log(logging.INFO if error_class is ErrorClass.NOT_FOUND else logging.ERROR, message)
             raise RenderAPIError(message, response.status_code, error_class)
 
     # ----- owner -----
@@ -98,7 +101,16 @@ class RenderClient:
             raise
 
     async def create_postgres(
-        self, *, name: str, owner_id: str, plan: str, region: str, version: str, db_name: str, db_user: str
+        self,
+        *,
+        name: str,
+        owner_id: str,
+        plan: str,
+        region: str,
+        version: str,
+        db_name: str,
+        db_user: str,
+        ip_allow_list: list[dict] | None = None,
     ) -> dict:
         body = {
             "name": name,
@@ -109,8 +121,21 @@ class RenderClient:
             "databaseName": db_name,
             "databaseUser": db_user,
             "enableHighAvailability": False,
+            # API-n létrehozott példánynál alapból üres a lista = nincs külső hozzáférés;
+            # a vezérlő (helyi gép) külső címen kapcsolódik, ezért engedélyezni kell.
+            "ipAllowList": ip_allow_list if ip_allow_list is not None else DEFAULT_IP_ALLOW_LIST,
         }
         return await self._request("POST", "/postgres", json=body)
+
+    async def ensure_ip_allow_list(self, postgres_id: str, ip_allow_list: list[dict] | None = None) -> bool:
+        """Ha a példány IP-engedélylistája üres, beállítja; visszaadja, történt-e módosítás."""
+        info = await self.get_postgres(postgres_id) or {}
+        if info.get("ipAllowList"):
+            return False
+        wanted = ip_allow_list if ip_allow_list is not None else DEFAULT_IP_ALLOW_LIST
+        await self._request("PATCH", f"/postgres/{postgres_id}", json={"ipAllowList": wanted})
+        logger.info("IP-engedélylista beállítva a(z) %s példányon: %s", postgres_id, wanted)
+        return True
 
     async def delete_postgres(self, postgres_id: str) -> None:
         await self._request("DELETE", f"/postgres/{postgres_id}")

@@ -238,8 +238,11 @@ class RotationController:
 
     async def step_restore_new(self, state: RunState) -> None:
         payload = self._payload(state)
+        if await self.render.ensure_ip_allow_list(state.new_postgres_id):
+            await asyncio.sleep(self.s.poll_interval_seconds)  # a hálózati szabály érvényre jutása
         info = await self.render.get_connection_info(state.new_postgres_id)
         target = info["externalConnectionString"]
+        backup_ops.wait_for_database(target, self.s.poll_timeout_seconds, max(self.s.poll_interval_seconds, 1.0))
         try:
             backup_ops.restore_backup(payload, target)
         except RuntimeError as exc:

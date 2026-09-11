@@ -1,9 +1,9 @@
 {
  "manifest": {
   "format_version": 1,
-  "created_at": "2026-09-11T13:21:28.749202+00:00",
-  "source_id": "dpg-demo-source",
-  "run_id": "manual",
+  "created_at": "2026-09-11T14:19:20.139025+00:00",
+  "source_id": "dpg-dai0abp42hec73aq7hrg-a",
+  "run_id": "20260911141906-6eb080",
   "tables": [
    "books",
    "maintenance_probes",
@@ -14,9 +14,9 @@
    "books": 8,
    "maintenance_probes": 0,
    "members": 4,
-   "loans": 6
+   "loans": 7
   },
-  "checksum": "debd9c8785c01d2575abdef7e4f5365d59912f7c4f17c9a46e2af998fb26f179"
+  "checksum": "66ff61f10a3269d22db084e2a5cf8cd42f379edbed8c493b60fb3e1e69a98108"
  },
  "data": {
   "books": [
@@ -160,6 +160,14 @@
     "loaned_at": "2026-07-01",
     "due_date": "2026-07-15",
     "returned_at": "2026-08-30"
+   },
+   {
+    "id": 7,
+    "book_id": 6,
+    "member_id": 3,
+    "loaned_at": "2026-09-11",
+    "due_date": "2026-09-25",
+    "returned_at": null
    }
   ]
  }
