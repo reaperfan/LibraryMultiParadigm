@@ -16,7 +16,7 @@
 | Forrás adatbázis (régi) | `dpg-…` (free, frankfurt, PostgreSQL 16) |
 | Új adatbázis | `dpg-…` (free, frankfurt, PostgreSQL 16) |
 | Vezérlő futási helye | helyi gép (Windows 11), `python -m maintenance.controller run` |
-| Próba-adatbázis (helyi) | `postgresql+psycopg://library:***@localhost:5433/library_verify` (Docker `postgres:16`) |
+| Próba-adatbázis (helyi) | `sqlite:///./verify_local.db` (vállalt korlát: SQLite, nem PostgreSQL) |
 | Csere oka | `MAINT_MAINTENANCE_AT=…` konfigurált karbantartási időpont |
 | Engedélyek | `MAINT_APPROVED_SOURCE_ID=dpg-…`, `MAINT_ALLOW_DELETE_SOURCE_ID=dpg-…` |
 

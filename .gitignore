@@ -12,3 +12,4 @@ backups/*.json
 state/
 !state/.gitkeep
 docs/logs/*.raw.log
+verify_local.db

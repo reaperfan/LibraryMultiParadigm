@@ -4,8 +4,8 @@ Python-beadandó, *Multi paradigmás programozási nyelvek gyakorlat*, EKKE Info
 
 | Komponens | Technológia | Felhős elérés |
 |---|---|---|
-| Backend (REST API) | FastAPI + SQLAlchemy ORM | Render: `https://<backend>.onrender.com` _(kitöltendő)_ |
-| Frontend | Streamlit | Streamlit Community Cloud: `https://<app>.streamlit.app` _(kitöltendő)_ |
+| Backend (REST API) | FastAPI + SQLAlchemy ORM | Render: https://librarymultiparadigm.onrender.com ([/docs](https://librarymultiparadigm.onrender.com/docs)) |
+| Frontend | Streamlit | Streamlit Community Cloud: https://libmultiparad.streamlit.app |
 | Adatbázis | PostgreSQL (Render), helyben SQLite | Render PostgreSQL, szolgáltatói API-val cserélt példány |
 | Karbantartó | `maintenance` csomag (asyncio + httpx + APScheduler) | helyi gépen fut |
 | CI | GitHub Actions (`.github/workflows/ci.yml`) | push / pull_request |
@@ -80,8 +80,9 @@ az API-n át jut vissza a felületre. A frontend **nem** éri el az adatbázist.
 * **Python 3.12** (CI) – helyben 3.14-gyel is fut; a függőségek verziói a `requirements.txt`-ben rögzítve.
 * Helyi fejlesztéshez **SQLite** (beépített). Felhőben PostgreSQL: a `psycopg[binary]` illesztő a
   requirements része, külön telepítés nem kell.
-* A karbantartó próbavisszaállításához egy **elkülönített PostgreSQL** (pl. Docker):
-  `docker run -d --name library-verify -e POSTGRES_USER=library -e POSTGRES_PASSWORD=library -e POSTGRES_DB=library_verify -p 5433:5432 postgres:16`
+* A karbantartó próbavisszaállításához egy **elkülönített adatbázis** (`MAINT_VERIFY_DATABASE_URL`):
+  ajánlott PostgreSQL 16 (pl. Docker: `docker run -d --name library-verify -e POSTGRES_USER=library -e POSTGRES_PASSWORD=library -e POSTGRES_DB=library_verify -p 5433:5432 postgres:16`);
+  a dokumentált cserepróbában helyi SQLite-fájl volt (lásd 3. szakasz, vállalt korlát).
 
 ### Telepítés és beállítás
 
@@ -164,7 +165,7 @@ lejár és munkaterületenként egy aktív ingyenes példány engedélyezett –
 útvonalon fut (lásd 3.).
 
 **Streamlit Community Cloud (frontend)** – app fájl: `frontend/app.py`; Secrets:
-`BACKEND_URL = "https://<backend>.onrender.com"`.
+`BACKEND_URL = "https://librarymultiparadigm.onrender.com"`.
 
 **Üzemeltetési korlátok:** a Render ingyenes webszolgáltatása inaktivitáskor leáll, az első kérés
 ~30–60 mp indulási késleltetéssel jár (a frontend ezt hibaüzenettel jelzi, a "Frissítés" gomb újrapróbál).
@@ -214,7 +215,10 @@ python -m maintenance.controller restore --backup backups/….json --target-url 
   (`MAINT_RULE_REFERENCE_DATE`) számolt eredménye a mentésen és a célon, próbabeszúrás (visszagörgetve)
   az azonosítóképzésre.
 * **Egy példányos csomag (Render free):** a végső mentést előbb a helyi próba-adatbázisba
-  (`MAINT_VERIFY_DATABASE_URL`) állítja vissza és ellenőrzi; csak sikeres ellenőrzés és kifejezett törlési
+  (`MAINT_VERIFY_DATABASE_URL`) állítja vissza és ellenőrzi. **Vállalt korlát:** a cserepróbában a
+  próba-adatbázis helyi SQLite volt (`sqlite:///./verify_local.db`), nem PostgreSQL – a tartalom, a
+  kapcsolatok, a szabályeredmény és az azonosítóképzés ellenőrzése így is lefut, de a PostgreSQL-specifikus
+  szekvencia-beállítást csak a felhős példányon végzett (`restore_new`) visszaállítás ellenőrzi; csak sikeres ellenőrzés és kifejezett törlési
   engedély után törli a régit, megvárja a törlés befejezését (404), majd API-val hozza létre az újat
   (csomag, régió, verzió kifejezetten megadva), időkorlátos állapotlekérdezéssel várja az `available`
   állapotot.

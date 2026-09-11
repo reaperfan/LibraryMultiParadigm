@@ -20,7 +20,7 @@
 
 | | Sikertelen futás | Javított futás |
 |---|---|---|
-| Actions-link | https://github.com/<user>/<repo>/actions/runs/… | https://github.com/<user>/<repo>/actions/runs/… |
+| Actions-link | https://github.com/reaperfan/LibraryMultiParadigm/actions/runs/… | https://github.com/reaperfan/LibraryMultiParadigm/actions/runs/… |
 | Commit | `…` | `…` |
 
 * **Tünet:** `assert rules.calculate_late_fee(DUE, reference, daily, cap) == expected` – `50 != 0` az

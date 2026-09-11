@@ -3,6 +3,7 @@
 from datetime import datetime
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -44,3 +45,9 @@ class MaintenanceSettings(BaseSettings):
     # Helyi tartós állományok
     backup_dir: Path = Path("backups")
     state_dir: Path = Path("state")
+
+    @field_validator("maintenance_at", mode="before")
+    @classmethod
+    def _empty_is_none(cls, value: object) -> object:
+        """Üres környezeti változó = nincs tervezett karbantartási időpont."""
+        return None if isinstance(value, str) and not value.strip() else value
