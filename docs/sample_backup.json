@@ -1,0 +1,166 @@
+{
+ "manifest": {
+  "format_version": 1,
+  "created_at": "2026-09-11T13:21:28.749202+00:00",
+  "source_id": "dpg-demo-source",
+  "run_id": "manual",
+  "tables": [
+   "books",
+   "maintenance_probes",
+   "members",
+   "loans"
+  ],
+  "row_counts": {
+   "books": 8,
+   "maintenance_probes": 0,
+   "members": 4,
+   "loans": 6
+  },
+  "checksum": "debd9c8785c01d2575abdef7e4f5365d59912f7c4f17c9a46e2af998fb26f179"
+ },
+ "data": {
+  "books": [
+   {
+    "id": 1,
+    "title": "Egri csillagok",
+    "author": "Gárdonyi Géza",
+    "year": 1901,
+    "isbn": "9789631193268",
+    "copies_total": 3
+   },
+   {
+    "id": 2,
+    "title": "A Pál utcai fiúk",
+    "author": "Molnár Ferenc",
+    "year": 1907,
+    "isbn": "9789631196474",
+    "copies_total": 2
+   },
+   {
+    "id": 3,
+    "title": "Az arany ember",
+    "author": "Jókai Mór",
+    "year": 1872,
+    "isbn": "9789630797054",
+    "copies_total": 2
+   },
+   {
+    "id": 4,
+    "title": "Tüskevár",
+    "author": "Fekete István",
+    "year": 1957,
+    "isbn": "9789631194180",
+    "copies_total": 1
+   },
+   {
+    "id": 5,
+    "title": "A kőszívű ember fiai",
+    "author": "Jókai Mór",
+    "year": 1869,
+    "isbn": "9789630797061",
+    "copies_total": 1
+   },
+   {
+    "id": 6,
+    "title": "Légy jó mindhalálig",
+    "author": "Móricz Zsigmond",
+    "year": 1920,
+    "isbn": "9789631194197",
+    "copies_total": 2
+   },
+   {
+    "id": 7,
+    "title": "Abigél",
+    "author": "Szabó Magda",
+    "year": 1970,
+    "isbn": "9789631431193",
+    "copies_total": 2
+   },
+   {
+    "id": 8,
+    "title": "Az ajtó",
+    "author": "Szabó Magda",
+    "year": 1987,
+    "isbn": "9789631431209",
+    "copies_total": 1
+   }
+  ],
+  "maintenance_probes": [],
+  "members": [
+   {
+    "id": 1,
+    "name": "Kiss Anna",
+    "email": "anna.kiss@example.com",
+    "joined_at": "2025-09-01"
+   },
+   {
+    "id": 2,
+    "name": "Nagy Béla",
+    "email": "bela.nagy@example.com",
+    "joined_at": "2025-10-15"
+   },
+   {
+    "id": 3,
+    "name": "Szabó Csilla",
+    "email": "csilla.szabo@example.com",
+    "joined_at": "2026-01-10"
+   },
+   {
+    "id": 4,
+    "name": "Tóth Dániel",
+    "email": "daniel.toth@example.com",
+    "joined_at": "2026-02-20"
+   }
+  ],
+  "loans": [
+   {
+    "id": 1,
+    "book_id": 1,
+    "member_id": 1,
+    "loaned_at": "2026-08-01",
+    "due_date": "2026-08-15",
+    "returned_at": "2026-08-14"
+   },
+   {
+    "id": 2,
+    "book_id": 2,
+    "member_id": 1,
+    "loaned_at": "2026-08-20",
+    "due_date": "2026-09-03",
+    "returned_at": null
+   },
+   {
+    "id": 3,
+    "book_id": 3,
+    "member_id": 2,
+    "loaned_at": "2026-08-10",
+    "due_date": "2026-08-24",
+    "returned_at": null
+   },
+   {
+    "id": 4,
+    "book_id": 4,
+    "member_id": 2,
+    "loaned_at": "2026-08-25",
+    "due_date": "2026-09-08",
+    "returned_at": null
+   },
+   {
+    "id": 5,
+    "book_id": 7,
+    "member_id": 3,
+    "loaned_at": "2026-08-28",
+    "due_date": "2026-09-11",
+    "returned_at": null
+   },
+   {
+    "id": 6,
+    "book_id": 1,
+    "member_id": 4,
+    "loaned_at": "2026-07-01",
+    "due_date": "2026-07-15",
+    "returned_at": "2026-08-30"
+   }
+  ]
+ }
+}

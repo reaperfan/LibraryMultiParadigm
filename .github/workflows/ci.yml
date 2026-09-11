@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python beállítása
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Rögzített függőségek telepítése
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Tesztadatbázis előkészítése
+        # A tesztcsomag saját, elkülönített SQLite-adatbázist hoz létre (tests/conftest.py);
+        # külső szolgáltatás, telepített adatbázis vagy titok nem szükséges.
+        run: echo "SQLite tesztadatbázis a conftest.py-ból"
+
+      - name: Tesztek futtatása
+        run: python -m pytest

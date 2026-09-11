@@ -1,0 +1,14 @@
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+SQLAlchemy==2.0.52
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-dotenv==1.2.3
+psycopg[binary]==3.3.5
+streamlit==1.63.0
+pandas==3.0.5
+httpx==0.28.1
+APScheduler==3.11.3
+pytest==9.1.1
+pytest-asyncio==1.4.0
+email-validator==2.3.0

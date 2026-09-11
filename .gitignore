@@ -1,0 +1,14 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+.streamlit/secrets.toml
+*.db
+backups/*.json
+!backups/README.md
+state/
+!state/.gitkeep
+docs/logs/*.raw.log
